@@ -1,0 +1,12 @@
+column_name,data_type,description,source,transformation_or_derivation,notes_or_concerns
+origin,str,Origin airport code for the route,flights table,Used as part of the route-level grouping key,"Forms the route key together with dest; only the three New York City airports (EWR, JFK, LGA)"
+dest,str,Destination airport code for the route,flights table,Used as part of the route-level grouping key,"Includes one unusual route, EWR to LGA, with a single cancelled flight"
+flight_count,int64,Number of flights observed for the route,flights table,Count of flight records grouped by origin and destination,"Includes cancelled flights; ranges from 1 to 11,262; 10 routes have fewer than 10 flights, so their averages are unstable"
+avg_dep_delay,float64,The mean of all departure flights,flights table,Mean of arr_delay grouped by origin and destination,Averages only flights with a recorded departure delay; negative means early on average
+avg_arr_delay,float64,"Average arrival delay for flights on the route, in minutes (target)",flights table,Mean of arr_delay grouped by origin and destination,Averages only flights with a recorded arrival delay; missing for EWR to LGA (its only flight was cancelled); negative means early on average
+max_arr_delay,float64,Maximum arrival delay of the flight,flights table,Max arr_delay grouped by origin and destination,Includes negative entries which indicate early arrivals
+avg_distance,float64,Average distance of the route,flights table,Mean distance grouped by origin and destination,Averages only flights with a recorded distance
+avg_air_time,float64,Average air time of the route,flights table,Mean air_time grouped by origin and destination,Averages only flights with a recorded air_time
+dest_airport_name,str,Full name of the destination airport,airports table,Joined from airports using dest = faa,"Missing for 7 routes whose destination (BQN, PSE, SJU, STT) is not in the airports table"
+dest_lat,float64,Latitude of the destination airport,airports table,Latitude of the destination airport grouped by destination,Includes only airports with a recorded latitude
+dest_lon,float64,Longitude of the destination airport,airports table,Longitude of the destination airport grouped by destination,Includes only airports with a recorded longitude
